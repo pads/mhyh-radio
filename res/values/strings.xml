@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MHYH Radio</string>
+    <string name="radio_url">http://50.7.98.106:8830/stream</string>
+    <string name="web_url">http://myhouseyourhouse.net/</string>
+    <string name="shout_url">shoutbox/shoutbox-mobile.php</string>
+    <string name="featured_url">iphone-featured.php</string>
+    <string name="schedule_url">iphone-todayshows.php</string>
+    <string name="events_url">iphone-events.php</string>    
+    <string name="news_url">iphone-news.php</string>    
+    <string name="contact_url">iphone-contact.php</string>
+    <string name="records_url">iphone-records.php</string>
+</resources>

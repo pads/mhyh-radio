@@ -1,0 +1,209 @@
+2013-08-05  pads  <pads@myhouseyourhouse.net>
+
+    * AndroidManifest.xml:
+    - Bump version to 1.0.4
+    - Renamed package to publish as new application.
+
+    * src/ww/yourhouse/myhouse/radio/*:
+    - Renamed package.
+
+2013-08-04  pads  <pads@myhouseyourhouse.net>
+
+    * res/values/strings.xml
+    - Use new stream URL.
+
+    * AndroidManifest.xml:
+    - Bump version to 1.0.3.
+
+2011-05-22  pads  <pads@myhouseyourhouse.net>
+
+  * AndroidManifest.xml:
+  * src/net/yourhouse/myhouse/radio/RadioApp.java:
+  - code reformat
+
+2011-02-27  pads  <pads@myhouseyourhouse.net>
+
+  * AndroidManifest.xml:
+  - install location set to auto.
+  
+  * default.properties:
+  - build target API level 8.
+
+2011-02-25  pads  <pads@myhouseyourhouse.net>
+
+  * AndroidManifest.xml:
+  - Removed screen and max/target SDK restrictions.
+  - Now at version 1.0.1. (code 2).
+
+2011-02-19  pads  <pads@myhouseyourhouse.net>
+
+	* AndroidManifest.xml:
+	- specify that the app is not designed for small screens. 
+	
+    * res/layout/main.xml:
+	* src/net/yourhouse/myhouse/radio/RadioApp.java:
+	- completed adding all tabs.
+	
+	* res/values/strings.xml:
+	- added all mobile PHP page links.
+	
+	* res/drawable-hdpi/logo.jpg
+	* res/drawable-hdpi/news.png
+	* res/drawable-hdpi/schedule.png
+	* res/drawable-hdpi/featured.png
+	* res/drawable-hdpi/music.png
+	* res/drawable-hdpi/records.png
+	* res/drawable-hdpi/events.png
+	* res/drawable-hdpi/icon.png
+	* res/drawable-hdpi/contact.png
+	* res/drawable-hdpi/shoutbox.png
+	* res/drawable-mdpi/logo.jpg
+	* res/drawable-mdpi/news.png
+	* res/drawable-mdpi/schedule.png
+	* res/drawable-mdpi/featured.png
+	* res/drawable-mdpi/music.png
+	* res/drawable-mdpi/records.png
+	* res/drawable-mdpi/events.png
+	* res/drawable-mdpi/icon.png
+	* res/drawable-mdpi/contact.png
+	* res/drawable-mdpi/shoutbox.png
+	- icons for tabs.
+
+2011-02-19  pads  <pads@myhouseyourhouse.net>
+
+	* default.properties:
+	- target of 2.1.
+	
+	* AndroidManifest.xml:
+	- max Android target now 2.3.3 (10).
+	- target is 2.1-update1 (7).
+	- min target is 2.1-update1 (7).
+
+	* src/com/giantrabbit/nagare/ShoutcastFile.java:
+	- Removed unused imports.
+	
+	* src/net/yourhouse/myhouse/radio/RadioApp.java:
+	- moved SD card broadcast intent to onDestroy method.
+	- use tabs.
+	
+	* res/layout/main.xml:
+	- use tabs.
+	
+	* res/drawable/dialog.png:
+	* res/drawable/music.png:
+	- icons for tab headers.
+	
+	* res/values/strings.xml: 
+	- use mobile shoutbox PHP page. 
+
+2011-01-10  pads  <pads@myhouseyourhouse.net>
+
+	* AndroidManifest.xml:
+	- Tidy up layout.
+	- Set version to 1.0.0
+	- Set install location to auto.
+	- Allow back-up and clear-data.
+	- Min Android 2.1
+	- broadcast intent about SD card data changes.
+	
+	* res/values/strings.xml:
+	- updated stream server URL.
+	
+	* src/net/yourhouse/myhouse/radio/RadioApp.java:
+	* res/menu/main_menu.xml:
+	- Hide preferences for now - they're not ready yet.
+	- Notify the system about audio file deletions.
+	
+	* src/com/giantrabbit/nagare/ShoutcastFile.java:
+	- Log about file deletion success.
+
+2010-09-29  pads  <pads@myhouseyourhouse.net>
+
+	* default.properties:
+	- Android 2.2 target.
+
+2010-08-06  pads  <pads@myhouseyourhouse.net>
+
+	* src/com/giantrabbit/nagare/ShoutcastFile.java:
+	- folder name to save streams now Myhouse-yourhouse. 
+
+2010-08-03  Ben  <pads@myhouseyourhouse.net>
+
+	* src/net/yourhouse/myhouse/radio/RadioWidget.java:
+	- removed unused imports.
+
+	* AndroidManifest.xml:
+	- minimum of Android 2.1 now.
+	- preferences activity.
+	 
+	* default.properties: 
+	- minimum of Android 2.1 now.
+	
+	* res/menu/main_menu.xml:
+	- top menu for quitting and settings.
+	
+	* src/net/yourhouse/myhouse/radio/RadioApp.java:
+	- handle top menu.
+	- code tidy up.
+	
+	* src/net/yourhouse/myhouse/radio/Preferences.java:
+	* res/xml/preferences.xml: 
+	- preferences menu.
+
+2010-02-28  Ben  <pads@myhouseyourhouse.net>
+
+	* res\values\strings.xml: 
+	- shoutbox.php location changed.
+
+2010-01-13  Ben  <pads@myhouseyourhouse.net>
+
+	* src\net\yourhouse\myhouse\radio\RadioApp.java:
+	- svn keywords.
+	- fixed bug where audio did not resume after incoming call ends.
+	- web page now part of a sliding view. 
+	- removed shout and schedule options.
+	- volume icon.
+	
+	* src\com\giantrabbit\nagare\ShoutcastFile.java: 
+	- delete file on stop - SD card filing up!
+	
+	* res\layout\main.xml:
+	- web page now part of a sliding view. 
+	- removed shout and schedule options.
+	- volume icon.
+	
+	* default.properties:
+	- target version now 5 (2.0).
+
+2010-01-12  Ben  <pads@myhouseyourhouse.net>
+
+	* AndroidManifest.xml:
+	- force activity to stay alive on orientation change.
+
+2010-01-10  Ben  <pads@myhouseyourhouse.net>
+
+	* AndroidManifest.xml: 
+	- upped version name to 0.2.
+	- single instance mode for activity.
+	- widget declared.
+	
+	* res\layout\main.xml: 
+	- volume control.
+	
+	* res\values\styles.xml:
+	- initial styles (to do).
+	
+	* res\layout\widget.xml: 
+	* res\xml\widget_info.xml:
+	* src\net\yourhouse\myhouse\radio\RadioWidget.java: 
+	- initial widget (to do).
+	
+	* src\net\yourhouse\myhouse\radio\RadioApp.java: 
+	- status bar notification when running in the background.
+	- volume control (system media stream).
+	- stop media stream when a call is in progress.
+
+2010-01-09  Ben  <pads@myhouseyourhouse.net>
+
+	* src\net\yourhouse\myhouse\radio\RadioApp.java: 
+	- prevent more than one stream running if application is stopped and started again.
