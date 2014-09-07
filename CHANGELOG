@@ -1,3 +1,27 @@
+2014-09-07  pads  <pads@myhouseyourhouse.net>
+
+    * AndroidManifest.xml:
+    - Bump version to 2.0.0 (code 6)
+    - Use new native media player service.
+
+    * src/net/yourhouse/myhouse/www/IRadioService.aidl:
+	* src/net/yourhouse/myhouse/www/RadioApp.java:
+	* src/net/yourhouse/myhouse/www/RadioService.java:
+	- Replace Nagare Shoutcast service with native media player service.
+
+2014-09-06  pads  <pads@myhouseyourhouse.net>
+
+    Migrate from Subversion repository.
+
+    * AndroidManifest.xml:
+    - Bump min SDK version to 8 (2.2 Froyo).
+
+    * build.gradle:
+    - Use Gradle for building the project.
+
+    * .gitignore:
+    - Ignore generated files.
+
 2013-08-05  pads  <pads@myhouseyourhouse.net>
 
     * AndroidManifest.xml:
@@ -17,23 +41,23 @@
 
 2011-05-22  pads  <pads@myhouseyourhouse.net>
 
-  * AndroidManifest.xml:
-  * src/net/yourhouse/myhouse/radio/RadioApp.java:
-  - code reformat
+    * AndroidManifest.xml:
+    * src/net/yourhouse/myhouse/radio/RadioApp.java:
+    - code reformat
 
 2011-02-27  pads  <pads@myhouseyourhouse.net>
 
-  * AndroidManifest.xml:
-  - install location set to auto.
-  
-  * default.properties:
-  - build target API level 8.
+    * AndroidManifest.xml:
+    - install location set to auto.
+
+    * default.properties:
+    - build target API level 8.
 
 2011-02-25  pads  <pads@myhouseyourhouse.net>
 
-  * AndroidManifest.xml:
-  - Removed screen and max/target SDK restrictions.
-  - Now at version 1.0.1. (code 2).
+    * AndroidManifest.xml:
+    - Removed screen and max/target SDK restrictions.
+    - Now at version 1.0.1. (code 2).
 
 2011-02-19  pads  <pads@myhouseyourhouse.net>
 

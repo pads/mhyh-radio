@@ -1,15 +1,4 @@
-/*
- * $Author: essexpads@googlemail.com $
- * $URL: https://mhyh-radio.googlecode.com/svn/trunk/src/net/yourhouse/myhouse/www/RadioApp.java $
- * $Date: 2013-08-05 12:17:38 +0100 (Mon, 05 Aug 2013) $
- * $Rev: 23 $
- */
 package net.yourhouse.myhouse.www;
-
-import com.giantrabbit.nagare.INagareService;
-import com.giantrabbit.nagare.NagareService;
-import com.giantrabbit.nagare.PlayListFactory;
-import com.giantrabbit.nagare.PlayListFile;
 
 import android.app.TabActivity;
 import android.app.AlertDialog;
@@ -80,7 +69,7 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
     private TelephonyManager telephonyManager;
     private WindowManager windowManager;
 
-    private INagareService nagareService = null;
+    private IRadioService radioService = null;
 
     private Notification notification;
 
@@ -110,7 +99,7 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
 
     /**
      * ******************************************************************************************
-     * **									Nagare Serivce									   ***
+     * **									Radio Service									   ***
      * *******************************************************************************************
      */
 
@@ -122,33 +111,33 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
     };
 
     public void refresh() {
-        if (nagareService == null) {
+        if (radioService == null) {
             return;
         }
         try {
-            int state = nagareService.state();
-            if (state == NagareService.STOPPED) {
+            int state = radioService.state();
+            if (state == RadioService.STOPPED) {
                 playButton.setImageResource(android.R.drawable.ic_media_play);
                 previousPlaying = nowPlaying;
                 nowPlaying = "No show information available";
                 outputView.setText(nowPlaying);
-                if (!nagareService.errors().equals("")) {
-                    String errors = nagareService.errors();
-                    handleNagareErrors(errors);
+                if (!radioService.errors().equals("")) {
+                    String errors = radioService.errors();
+                    handleRadioServiceErrors(errors);
                 }
             } else {
                 playButton.setImageResource(android.R.drawable.ic_media_pause);
-                if (nagareService.errors().equals("")) {
+                if (radioService.errors().equals("")) {
                     previousPlaying = nowPlaying;
-                    nowPlaying = "Now playing: " + nagareService.show_name();
+                    nowPlaying = "Now playing: " + radioService.showName();
                     outputView.setText(nowPlaying);
                 } else {
                     previousPlaying = nowPlaying;
                     nowPlaying = "No show information available";
                     outputView.setText(nowPlaying);
-                    String errors = nagareService.errors();
-                    handleNagareErrors(errors);
-                    nagareService.stop();
+                    String errors = radioService.errors();
+                    handleRadioServiceErrors(errors);
+                    radioService.stop();
                 }
             }
             if (notification != null && !nowPlaying.equals(previousPlaying) && inBackground) {
@@ -162,21 +151,21 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
         }
     }
 
-    private ServiceConnection nagareServiceConn = new ServiceConnection() {
+    private ServiceConnection RadioServiceConn = new ServiceConnection() {
 
         public void onServiceConnected(ComponentName classname, IBinder service) {
-            nagareService = INagareService.Stub.asInterface(service);
-            Log.d(MHYH_RADIO_LOG_TAG, "Nagare service connected");
+            radioService = IRadioService.Stub.asInterface(service);
+            Log.d(MHYH_RADIO_LOG_TAG, "Radio service connected");
         }
 
         public void onServiceDisconnected(ComponentName name) {
-            nagareService = null;
-            Log.d(MHYH_RADIO_LOG_TAG, "Nagare service disconnected");
+            radioService = null;
+            Log.d(MHYH_RADIO_LOG_TAG, "Radio service disconnected");
         }
 
     };
 
-    private void handleNagareErrors(String errors) {
+    private void handleRadioServiceErrors(String errors) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         if (errors.startsWith("java.io.FileNotFoundException")) {
             builder.setMessage("A valid SD card is required for broadcasting");
@@ -265,23 +254,23 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
         volumeSeekBar.setOnSeekBarChangeListener(this);
         // Retrieve preferences
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        // Setup the Nagare service
-        bindService(new Intent(getApplicationContext(), NagareService.class), nagareServiceConn, Context.BIND_AUTO_CREATE);
+        // Setup the Radio service
+        bindService(new Intent(getApplicationContext(), RadioService.class), RadioServiceConn, Context.BIND_AUTO_CREATE);
         runRefresh.run();
-        Intent intent = getIntent();
-        if (intent.getAction() != null && intent.getAction().equals(Intent.ACTION_VIEW)) {
-            PlayListFile playListFile = PlayListFactory.create(intent.getType(), intent.getData());
-            if (playListFile == null) {
-                outputView.setText("Not sure what to do with: " + intent.getAction() + ":" + intent.getDataString() + ":" + intent.getType());
-            } else {
-                playListFile.parse();
-                if (playListFile.errors() != "") {
-                    outputView.setText(playListFile.errors());
-                } else {
-                    outputView.setText(playListFile.play_list().m_entries.getFirst().m_url_string);
-                }
-            }
-        }
+//        Intent intent = getIntent();
+//        if (intent.getAction() != null && intent.getAction().equals(Intent.ACTION_VIEW)) {
+//            PlayListFile playListFile = PlayListFactory.create(intent.getType(), intent.getData());
+//            if (playListFile == null) {
+//                outputView.setText("Not sure what to do with: " + intent.getAction() + ":" + intent.getDataString() + ":" + intent.getType());
+//            } else {
+//                playListFile.parse();
+//                if (playListFile.errors() != "") {
+//                    outputView.setText(playListFile.errors());
+//                } else {
+//                    outputView.setText(playListFile.play_list().m_entries.getFirst().m_url_string);
+//                }
+//            }
+//        }
     }
 
     @Override
@@ -291,13 +280,13 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
 
         notificationManager.cancel(MHYH_ID);
         try {
-            if (nagareService != null) {
-                nagareService.stop();
+            if (radioService != null) {
+                radioService.stop();
             }
         } catch (RemoteException e) {
             Log.e(MHYH_RADIO_LOG_TAG, "Caught RemoteException: " + e.getMessage());
         }
-        unbindService(nagareServiceConn);
+        unbindService(RadioServiceConn);
         super.onDestroy();
     }
 
@@ -331,19 +320,19 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.PlayButton:
-                if (nagareService == null) {
+                if (radioService == null) {
                     outputView.setText("No service available!");
                     Log.w(MHYH_RADIO_LOG_TAG, "Nagare service is NULL");
                     return;
                 }
                 try {
-                    int state = nagareService.state();
-                    if (state == NagareService.STOPPED && !inCall) {
-                        nagareService.download(getString(R.string.radio_url));
-                    } else if (state == NagareService.STOPPED && inCall) {
-                        handleNagareErrors("inCall");
+                    int state = radioService.state();
+                    if (state == RadioService.STOPPED && !inCall) {
+                        radioService.start();
+                    } else if (state == RadioService.STOPPED && inCall) {
+                        handleRadioServiceErrors("inCall");
                     } else {
-                        nagareService.stop();
+                        radioService.stop();
                     }
                 } catch (RemoteException e) {
                     outputView.setText("Error connecting to Nagare service: " + e.toString() + "\n");
@@ -369,8 +358,8 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
                 case TelephonyManager.CALL_STATE_IDLE:
                     inCall = false;
                     try {
-                        if (nagareService != null && wasPlaying) {
-                            nagareService.download(getString(R.string.radio_url));
+                        if (radioService != null && wasPlaying) {
+                            radioService.start();
                         }
                     } catch (RemoteException e) {
                         Log.e(MHYH_RADIO_LOG_TAG, "Caught RemoteException: " + e.getMessage());
@@ -380,8 +369,8 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
                 case TelephonyManager.CALL_STATE_RINGING:
                     try {
                         if (!inCall) {
-                            if (nagareService != null) {
-                                if (nagareService.state() != NagareService.STOPPED) {
+                            if (radioService != null) {
+                                if (radioService.state() != RadioService.STOPPED) {
                                     wasPlaying = true;
                                 } else {
                                     wasPlaying = false;
@@ -393,8 +382,8 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
                         Log.e(MHYH_RADIO_LOG_TAG, "Caught RemoteException: " + e1.getMessage());
                     }
                     try {
-                        if (nagareService != null) {
-                            nagareService.stop();
+                        if (radioService != null) {
+                            radioService.stop();
                         }
                     } catch (RemoteException e2) {
                         Log.e(MHYH_RADIO_LOG_TAG, "Caught RemoteException: " + e2.getMessage());
