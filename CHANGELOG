@@ -1,5 +1,12 @@
 2014-09-08  pads  <pads@myhouseyourhouse.net>
 
+    * src/net/yourhouse/myhouse/www/RadioApp.java:
+    * assets/shoutbox.html:
+    * res/values/strings.xml:
+    - Replace Shoutbox web page with local version (using yourshoutbox.com script).
+
+2014-09-08  pads  <pads@myhouseyourhouse.net>
+
     * AndroidManifest.xml:
     - Remove SD card unmount and write to external storage permissions.
 

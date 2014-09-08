@@ -3,7 +3,7 @@
     <string name="app_name">MHYH Radio</string>
     <string name="radio_url">http://50.7.98.106:8830/stream</string>
     <string name="web_url">http://myhouseyourhouse.net/</string>
-    <string name="shout_url">shoutbox/shoutbox-mobile.php</string>
+    <string name="shout_url">"file:///android_asset/shoutbox.html"</string>
     <string name="featured_url">iphone-featured.php</string>
     <string name="schedule_url">iphone-todayshows.php</string>
     <string name="events_url">iphone-events.php</string>    

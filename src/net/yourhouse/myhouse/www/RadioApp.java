@@ -217,7 +217,7 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
         shoutBoxWebView = (WebView) findViewById(R.id.ShoutBoxWebview);
         shoutBoxWebView.getSettings().setJavaScriptEnabled(true);
         shoutBoxWebView.setWebViewClient(new RadioWebViewClient());
-        shoutBoxWebView.loadUrl(getString(R.string.web_url) + getString(R.string.shout_url));
+        shoutBoxWebView.loadUrl(getString(R.string.shout_url));
 
         scheduleWebView = (WebView) findViewById(R.id.ScheduleWebview);
         scheduleWebView.getSettings().setJavaScriptEnabled(true);
