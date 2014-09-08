@@ -167,14 +167,12 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
 
     private void handleRadioServiceErrors(String errors) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        if (errors.startsWith("java.io.FileNotFoundException")) {
-            builder.setMessage("A valid SD card is required for broadcasting");
-        } else if (errors.startsWith("java.lang.NumberFormatException")) {
+        if (errors.startsWith("java.lang.NumberFormatException")) {
             builder.setMessage("No stream available, please try again later");
         } else if (errors.equals("inCall")) {
             builder.setMessage("Cannot play audio while in a call");
         } else {
-            builder.setMessage("An unknown error occured");
+            builder.setMessage("An unknown error occurred");
             Log.w(MHYH_RADIO_LOG_TAG, "Found un-handled error(s): " + errors);
         }
         builder.setCancelable(false);
@@ -275,9 +273,6 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
 
     @Override
     protected void onDestroy() {
-        // This informs other applications that access media on the SD card that our audio file no longer exists.
-        sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
-
         notificationManager.cancel(MHYH_ID);
         try {
             if (radioService != null) {
@@ -322,7 +317,7 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
             case R.id.PlayButton:
                 if (radioService == null) {
                     outputView.setText("No service available!");
-                    Log.w(MHYH_RADIO_LOG_TAG, "Nagare service is NULL");
+                    Log.w(MHYH_RADIO_LOG_TAG, "Radio service is NULL");
                     return;
                 }
                 try {
@@ -335,7 +330,7 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
                         radioService.stop();
                     }
                 } catch (RemoteException e) {
-                    outputView.setText("Error connecting to Nagare service: " + e.toString() + "\n");
+                    outputView.setText("Error connecting to Radio service: " + e.toString() + "\n");
                     Log.e(MHYH_RADIO_LOG_TAG, "Caught RemoteException: " + e.getMessage());
                 }
                 break;
