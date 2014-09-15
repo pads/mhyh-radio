@@ -129,7 +129,7 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
                 playButton.setImageResource(android.R.drawable.ic_media_pause);
                 if (radioService.errors().equals("")) {
                     previousPlaying = nowPlaying;
-                    nowPlaying = "Now playing: " + radioService.showName();
+                    nowPlaying = radioService.showName();
                     outputView.setText(nowPlaying);
                 } else {
                     previousPlaying = nowPlaying;

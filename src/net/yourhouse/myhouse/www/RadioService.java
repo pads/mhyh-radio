@@ -17,6 +17,7 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
 
     private MediaPlayer mediaPlayer;
     private String errors = "";
+    private String showName = "";
     private int state;
 
     public RadioService() {
@@ -31,6 +32,7 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
     @Override
     public void onPrepared(MediaPlayer mediaPlayer) {
         mediaPlayer.start();
+        showName = "Now playing: MHYH Radio";
         state = PLAYING;
     }
 
@@ -39,13 +41,14 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public  String showName() {
-        return "MHYH Radio";
+        return showName;
     }
 
     public void start() {
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         try {
+            showName = "Please wait, buffering...";
             mediaPlayer.setDataSource(getString(R.string.radio_url));
             mediaPlayer.setOnPreparedListener(this);
             mediaPlayer.prepareAsync();
