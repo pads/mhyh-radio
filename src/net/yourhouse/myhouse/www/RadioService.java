@@ -8,6 +8,9 @@ import android.os.IBinder;
 import android.util.Log;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class RadioService extends Service implements MediaPlayer.OnPreparedListener {
 
@@ -16,6 +19,7 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
     public static final int BUFFERING = 2;
 
     private MediaPlayer mediaPlayer;
+    URLConnection urlConnection;
     private String errors = "";
     private String showName = "No show information available";
     private int state;
@@ -32,7 +36,11 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
     @Override
     public void onPrepared(MediaPlayer mediaPlayer) {
         mediaPlayer.start();
-        showName = "Now playing: MHYH Radio";
+        if(urlConnection != null) {
+            showName = "Now playing: " + urlConnection.getHeaderField("icy-name");
+        } else {
+            showName = "Now playing: MHYH Radio";
+        }
         state = PLAYING;
     }
 
@@ -48,6 +56,8 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         try {
+            urlConnection = new URL(getString(R.string.radio_url)).openConnection();
+            urlConnection.connect();
             showName = "Please wait, buffering...";
             mediaPlayer.setDataSource(getString(R.string.radio_url));
             mediaPlayer.setOnPreparedListener(this);
@@ -64,6 +74,7 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
         if(mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
             state = STOPPED;
+            showName = "No show information available";
         }
     }
 

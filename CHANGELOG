@@ -1,4 +1,8 @@
 2014-10-17  pads  <pads@myhouseyourhouse.net>
+    * src/net/yourhouse/myhouse/www/RadioService.java:
+    - Set the show name by opening another URL connection and reading the header.
+
+2014-10-17  pads  <pads@myhouseyourhouse.net>
 
     * src/net/yourhouse/myhouse/www/RadioApp.java:
     * res/layout/main.xml:
