@@ -17,7 +17,7 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
 
     private MediaPlayer mediaPlayer;
     private String errors = "";
-    private String showName = "";
+    private String showName = "No show information available";
     private int state;
 
     public RadioService() {
@@ -55,6 +55,7 @@ public class RadioService extends Service implements MediaPlayer.OnPreparedListe
             state = BUFFERING;
         } catch (IOException e) {
             Log.e(RadioApp.MHYH_RADIO_LOG_TAG, "Caught IOException: " + e.getMessage());
+            showName = "No show information available";
             errors = "Error starting stream";
         }
     }

@@ -30,8 +30,8 @@
 				</ImageView>
 				
 				<ImageButton android:id="@+id/PlayButton" 
-				             android:layout_width="wrap_content"
-							 android:layout_height="wrap_content"
+				             android:layout_width="100dip"
+							 android:layout_height="100dip"
 							 android:layout_centerVertical="true"
 							 android:layout_centerHorizontal="true"
 							 android:paddingLeft="30dip"
@@ -39,6 +39,13 @@
 							 android:paddingTop="30dip"
 							 android:paddingBottom="30dip">
 				</ImageButton>
+                
+                <ProgressBar android:id="@+id/ProgressBar"
+                             android:layout_width="wrap_content"
+                             android:layout_centerInParent="true"
+                             android:layout_height="fill_parent"
+                             android:visibility="invisible">
+                </ProgressBar>
 				
 				<SeekBar android:id="@+id/VolumeSeekBar"
 				         android:layout_width="wrap_content" 

@@ -37,6 +37,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -77,6 +78,7 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
     private Resources res;
     private TabHost tabHost;
     private ImageButton playButton;
+    private ProgressBar progressBar;
     private TextView outputView;
     private WebView shoutBoxWebView;
     private WebView featuredWebView;
@@ -118,28 +120,26 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
             int state = radioService.state();
             if (state == RadioService.STOPPED) {
                 playButton.setImageResource(android.R.drawable.ic_media_play);
-                previousPlaying = nowPlaying;
                 nowPlaying = "No show information available";
-                outputView.setText(nowPlaying);
                 if (!radioService.errors().equals("")) {
                     String errors = radioService.errors();
                     handleRadioServiceErrors(errors);
                 }
+            } else if (state == RadioService.BUFFERING) {
+                playButton.setImageResource(android.R.color.transparent);
+                progressBar.setVisibility(ProgressBar.VISIBLE);
             } else {
+                progressBar.setVisibility(ProgressBar.INVISIBLE);
                 playButton.setImageResource(android.R.drawable.ic_media_pause);
-                if (radioService.errors().equals("")) {
-                    previousPlaying = nowPlaying;
-                    nowPlaying = radioService.showName();
-                    outputView.setText(nowPlaying);
-                } else {
-                    previousPlaying = nowPlaying;
-                    nowPlaying = "No show information available";
-                    outputView.setText(nowPlaying);
+                if (!radioService.errors().equals("")) {
                     String errors = radioService.errors();
                     handleRadioServiceErrors(errors);
                     radioService.stop();
                 }
             }
+            previousPlaying = nowPlaying;
+            nowPlaying = radioService.showName();
+            outputView.setText(nowPlaying);
             if (notification != null && !nowPlaying.equals(previousPlaying) && inBackground) {
                 Intent notificationIntent = new Intent(this, RadioApp.class);
                 PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
@@ -205,6 +205,7 @@ public class RadioApp extends TabActivity implements OnClickListener, OnSeekBarC
         res = getResources();
         setContentView(R.layout.main);
         playButton = (ImageButton) findViewById(R.id.PlayButton);
+        progressBar = (ProgressBar) findViewById(R.id.ProgressBar);
         outputView = (TextView) findViewById(R.id.OutputView);
         volumeSeekBar = (SeekBar) findViewById(R.id.VolumeSeekBar);
         volumeImageView = (ImageView) findViewById(R.id.VolumeImageView);
