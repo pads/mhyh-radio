@@ -1,4 +1,4 @@
-package net.yourhouse.myhouse.www;
+package net.yourhouse.myhouse;
 
 interface IRadioService {
 	String errors();

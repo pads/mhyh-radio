@@ -1,5 +1,16 @@
 2014-10-21  pads  <pads@myhouseyourhouse.net>
 
+    * .gitignore:
+    - Ignore keystore files.
+
+    * AndroidManifest.xml:
+    * src/net/yourhouse/myhouse/IRadioService.aidl:
+    * src/net/yourhouse/myhouse/RadioApp.java:
+    * src/net/yourhouse/myhouse/RadioService.java:
+    - Rename package to be able to publish the APK as a new app.
+
+2014-10-21  pads  <pads@myhouseyourhouse.net>
+
     * assets/shoutbox.html:
     - Tidy up markup and styling.
 

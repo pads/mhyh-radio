@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="net.yourhouse.myhouse.www"
+          package="net.yourhouse.myhouse"
           android:versionName="2.0.0"
           android:versionCode="6"
           android:installLocation="auto">
@@ -35,7 +35,7 @@
 
         </activity>
 
-        <service android:exported="true" android:name="net.yourhouse.myhouse.www.RadioService"
+        <service android:exported="true" android:name="net.yourhouse.myhouse.RadioService"
                  android:enabled="true"></service>
 
     </application>
