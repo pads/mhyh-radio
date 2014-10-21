@@ -1,4 +1,13 @@
+2014-10-21  pads  <pads@myhouseyourhouse.net>
+
+    * assets/shoutbox.html:
+    - Tidy up markup and styling.
+
+    * build.gradle:
+    - Configure APK generation.
+
 2014-10-17  pads  <pads@myhouseyourhouse.net>
+
     * src/net/yourhouse/myhouse/www/RadioService.java:
     - Set the show name by opening another URL connection and reading the header.
 
